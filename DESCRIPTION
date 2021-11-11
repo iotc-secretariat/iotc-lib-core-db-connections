@@ -1,0 +1,18 @@
+Package: iotc.core.db.connections
+Type: Package
+Title: IOTC core RDBMS connectivity helpers and constants
+Version: 0.2.0
+Author: Fabio Fiorellato <fabio.fiorellato@fao.org>
+Maintainer: Fabio Fiorellato <fabio.fiorellato@fao.org>
+Description: Provides convenience methods to create connections to the most frequently used IOTC databases, including:
+    IOTDB (to be removed...)
+    IOTCStatistics (the new IOTC database)
+    ROS_2.2.2
+    etc.
+License: Private
+Encoding: UTF-8
+LazyData: true
+Depends: 
+  odbc,
+  iotc.core.utils.misc
+RoxygenNote: 7.1.1
