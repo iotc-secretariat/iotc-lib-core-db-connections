@@ -1,7 +1,7 @@
 Package: iotc.core.db.connections
 Type: Package
 Title: IOTC core RDBMS connectivity helpers and constants
-Version: 0.2.0
+Version: 0.2.1
 Author: Fabio Fiorellato <fabio.fiorellato@fao.org>
 Maintainer: Fabio Fiorellato <fabio.fiorellato@fao.org>
 Description: Provides convenience methods to create connections to the most frequently used IOTC databases, including:
