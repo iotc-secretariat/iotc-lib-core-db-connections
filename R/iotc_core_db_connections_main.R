@@ -19,7 +19,7 @@ WP_CE_RAISED   = "WP_CE_raised"
 
 #'The constants holding the name of the ROS database
 #'@export
-ROS            = "ROS_2.2.1"
+ROS            = "ROS_2.3.0"
 
 #'The constants holding the name of the ROS_analysis database
 #'@export
