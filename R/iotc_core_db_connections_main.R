@@ -129,13 +129,10 @@ get_default_db_server = function() {
 DB_CONNECT_TO = function(server = get_default_db_server(), database, username = NA, password = NA) {
   DEBUG = db_debug_connections()
 
-  if(DEBUG)
-    print(
-      paste("Connecting to", database, "on", server, ifelse(!is.na(username), paste("using", username, "as username"), ""))
-    )
+  is_trusted = ( is.na(username) | username == "") & ( is.na(password) | password == "" )
 
-  if(is.na(username) & is.na(password)) {
-    if(DEBUG) print("Using trusted connection")
+  if(is_trusted) {
+    if(DEBUG) l_info(paste("Connecting to", database, "on", server, "using current user credentials"))
 
     return (dbConnect(odbc(),
                       Driver = "SQL Server",
@@ -143,7 +140,7 @@ DB_CONNECT_TO = function(server = get_default_db_server(), database, username = 
                       database = database,
                       Trusted_Connection = "true"))
   } else {
-    if(DEBUG) print("Using SQL Server credentials")
+    if(DEBUG) l_info(paste("Connecting to", database, "on", server, "using", username, "as username"))
 
     return (dbConnect(odbc(),
                       Driver = "SQL Server",
