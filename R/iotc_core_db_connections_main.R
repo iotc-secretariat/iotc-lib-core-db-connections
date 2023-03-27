@@ -1,6 +1,10 @@
 SERVER_CACHE      = new.env(hash = TRUE)
 CREDENTIALS_CACHE = new.env(hash = TRUE)
 
+#'The constants holding the name of the IOTC_MASTER database
+#'@export
+IOTC_MASTER    = "IOTC_MASTER"
+
 #'The constants holding the name of the IOTDB database
 #'@export
 IOTDB          = "IOTDB"
@@ -51,7 +55,7 @@ db_debug_connections = function(mode = NA) {
 #'@param password the password
 #'@export
 set_credentials_for_db = function(database, username, password) {
-  cache_set(CREDENTIALS_CACHE, database, list(USERNAME=username, PASSWORD=password), hash_key = FALSE)
+  cache_set(CREDENTIALS_CACHE, database, list(USERNAME = username, PASSWORD = password), hash_key = FALSE)
 }
 
 #'Retrieves the default username / password for a given database.
@@ -121,12 +125,16 @@ get_default_db_server = function() {
 #'
 #' @param server The server name / IP address (defaults to \code{\link{SERVER_DEFAULT}})
 #' @param database The database name
+#' @param username The user name
+#' @param password The password
+#' @param database_encoding The encoding set for the specific database (defaults to CP1252)
+#' @param client_charset The character set used by the client (defaults to UTF-8)
 #' @return An ODBC connection to \code{database} on \code{server}
 #' @examples
 #' DB_CONNECT_TO("localhost", "IOTDB")
 #' DB_CONNECT_TO("IOTDB")
 #' @export
-DB_CONNECT_TO = function(server = get_default_db_server(), database, username = NA, password = NA) {
+DB_CONNECT_TO = function(server = get_default_db_server(), database, username = NA, password = NA, database_encoding = "CP1252", client_charset = "UTF-8") {
   DEBUG = db_debug_connections()
 
   is_trusted = ( is.na(username) | username == "") & ( is.na(password) | password == "" )
@@ -138,7 +146,9 @@ DB_CONNECT_TO = function(server = get_default_db_server(), database, username = 
                       Driver = "SQL Server",
                       Server = server,
                       database = database,
-                      Trusted_Connection = "true"))
+                      Trusted_Connection = "true",
+                      encoding = database_encoding,
+                      clientcharset = client_charset))
   } else {
     if(DEBUG) l_info(paste("Connecting to", database, "on", server, "using", username, "as username"))
 
@@ -147,8 +157,23 @@ DB_CONNECT_TO = function(server = get_default_db_server(), database, username = 
                       Server = server,
                       database = database,
                       UID = username,
-                      PWD = password))
+                      PWD = password,
+                      encoding = database_encoding,
+                      clientcharset = client_charset))
   }
+}
+
+#' Connects to an instance of \code{IOTC_MASTER} on a given server machine using a trusted connection
+#'
+#' @param server The server name / IP address (defaults to \code{\link{SERVER_DEFAULT}})
+#' @param username The username (defaults to the standard one for this specific DB)
+#' @param password The password (defaults to the standard one for this specific DB)
+#' @param database_encoding The encoding set for the specific database (defaults to CP1252)
+#' @param client_charset The character set used by the client (defaults to UTF-8)
+#' @return An ODBC connection to \code{IOTC_MASTER} on \code{server}
+#' @export
+DB_IOTC_MASTER = function(server = get_default_db_server(), username = get_username_for_db(IOTDB), password = get_password_for_db(IOTDB), database_encoding = "CP1252", client_charset = "UTF-8") {
+  return(connect_to(server, IOTC_MASTER, username, password, database_encoding, client_charset))
 }
 
 #' Connects to an instance of \code{IOTDB} on a given server machine using a trusted connection
@@ -156,10 +181,12 @@ DB_CONNECT_TO = function(server = get_default_db_server(), database, username = 
 #' @param server The server name / IP address (defaults to \code{\link{SERVER_DEFAULT}})
 #' @param username The username (defaults to the standard one for this specific DB)
 #' @param password The password (defaults to the standard one for this specific DB)
+#' @param database_encoding The encoding set for the specific database (defaults to CP1252)
+#' @param client_charset The character set used by the client (defaults to UTF-8)
 #' @return An ODBC connection to \code{IOTDB} on \code{server}
 #' @export
-DB_IOTDB = function(server = get_default_db_server(), username = get_username_for_db(IOTDB), password = get_password_for_db(IOTDB)) {
-  return(connect_to(server, IOTDB, username, password))
+DB_IOTDB = function(server = get_default_db_server(), username = get_username_for_db(IOTDB), password = get_password_for_db(IOTDB), database_encoding = "CP1252", client_charset = "UTF-8") {
+  return(connect_to(server, IOTDB, username, password, database_encoding, client_charset))
 }
 
 #' Connects to an instance of \code{\link{IOTCSTATISTICS}} on a given server machine using a trusted connection
@@ -167,9 +194,11 @@ DB_IOTDB = function(server = get_default_db_server(), username = get_username_fo
 #' @param server The server name / IP address (defaults to \code{\link{SERVER_DEFAULT}})
 #' @param username The username (defaults to the standard one for this specific DB)
 #' @param password The password (defaults to the standard one for this specific DB)
+#' @param database_encoding The encoding set for the specific database (defaults to CP1252)
+#' @param client_charset The character set used by the client (defaults to UTF-8)
 #' @return An ODBC connection to \code{\link{IOTCSTATISTICS}} on \code{server}
 #' @export
-DB_IOTCSTATISTICS = function(server = get_default_db_server(), username = get_username_for_db(IOTCSTATISTICS), password = get_password_for_db(IOTCSTATISTICS)) {
+DB_IOTCSTATISTICS = function(server = get_default_db_server(), username = get_username_for_db(IOTCSTATISTICS), password = get_password_for_db(IOTCSTATISTICS), database_encoding = "CP1252", client_charset = "UTF-8") {
   return(connect_to(server, IOTCSTATISTICS, username, password))
 }
 
@@ -178,9 +207,11 @@ DB_IOTCSTATISTICS = function(server = get_default_db_server(), username = get_us
 #' @param server The server name / IP address (defaults to \code{\link{SERVER_DEFAULT}})
 #' @param username The username (defaults to the standard one for this specific DB)
 #' @param password The password (defaults to the standard one for this specific DB)
+#' @param database_encoding The encoding set for the specific database (defaults to CP1252)
+#' @param client_charset The character set used by the client (defaults to UTF-8)
 #' @return An ODBC connection to \code{\link{WP_CE_RAISED}} on \code{server}
 #' @export
-DB_WP_CE_RAISED = function(server = get_default_db_server(), username = get_username_for_db(WP_CE_RAISED), password = get_password_for_db(WP_CE_RAISED)) {
+DB_WP_CE_RAISED = function(server = get_default_db_server(), username = get_username_for_db(WP_CE_RAISED), password = get_password_for_db(WP_CE_RAISED), database_encoding = "CP1252", client_charset = "UTF-8") {
   return(connect_to(server, WP_CE_RAISED, username, password))
 }
 
@@ -189,45 +220,53 @@ DB_WP_CE_RAISED = function(server = get_default_db_server(), username = get_user
 #' @param server The server name / IP address (defaults to \code{\link{SERVER_DEFAULT}})
 #' @param username The username (defaults to the standard one for this specific DB)
 #' @param password The password (defaults to the standard one for this specific DB)
+#' @param database_encoding The encoding set for the specific database (defaults to CP1252)
+#' @param client_charset The character set used by the client (defaults to UTF-8)
 #' @return An ODBC connection to \code{\link{IOTCVESSELS}} on \code{server}
 #' @export
-DB_RAV = function(server = get_default_db_server(), username = get_username_for_db(IOTCVESSELS), password = get_password_for_db(IOTCVESSELS)) {
+DB_RAV = function(server = get_default_db_server(), username = get_username_for_db(IOTCVESSELS), password = get_password_for_db(IOTCVESSELS), database_encoding = "CP1252", client_charset = "UTF-8") {
   return(connect_to(server, IOTCVESSELS, username, password))
 }
 
 #' Connects to an instance of \code{\code{ROS}} on a given server machine using a trusted connection
 #'
 #' @param server The server name / IP address (defaults to \code{\link{SERVER_DEFAULT}})
-#' @param database The database name (defaults to \code{\link{ROS}})
 #' @param username The username (defaults to the standard one for this specific DB)
 #' @param password The password (defaults to the standard one for this specific DB)
+#' @param database_encoding The encoding set for the specific database (defaults to CP1252)
+#' @param client_charset The character set used by the client (defaults to UTF-8)
 #' @return An ODBC connection to \code{\link{ROS}} on \code{server}
 #' @export
-DB_ROS = function(server = get_default_db_server(), database = ROS, username = get_username_for_db(ROS), password = get_password_for_db(ROS)) {
-  return(connect_to(server, database, username, password))
+DB_ROS = function(server = get_default_db_server(), username = get_username_for_db(ROS), password = get_password_for_db(ROS), database_encoding = "CP1252", client_charset = "UTF-8") {
+  return(connect_to(server, ROS, username, password))
 }
 
 #' Connects to an instance of \code{\link{ROS_ANALYSIS}} on a given server machine using a trusted connection
 #'
 #' @param server The server name / IP address (defaults to \code{\link{SERVER_DEFAULT}})
-#' @param database The database name (defaults to \code{\link{ROS_ANALYSIS}})
 #' @param username The username (defaults to the standard one for this specific DB)
 #' @param password The password (defaults to the standard one for this specific DB)
+#' @param database_encoding The encoding set for the specific database (defaults to CP1252)
+#' @param client_charset The character set used by the client (defaults to UTF-8)
 #' @return An ODBC connection to \code{\link{ROS_ANALYSIS}} on \code{server}
 #' @export
-DB_ROS_ANALYSIS = function(server = get_default_db_server(), database = ROS_ANALYSIS, username = get_username_for_db(ROS_ANALYSIS), password = get_password_for_db(ROS_ANALYSIS)) {
-  return(connect_to(server, database, username, password))
+DB_ROS_ANALYSIS = function(server = get_default_db_server(), username = get_username_for_db(ROS_ANALYSIS), password = get_password_for_db(ROS_ANALYSIS), database_encoding = "CP1252", client_charset = "UTF-8") {
+  return(connect_to(server, ROS_ANALYSIS, username, password))
 }
 
 #' Connects to an instance of \code{\link{BUOY_DATA}} on a given server machine using a trusted connection
 #'
 #' @param server The server name / IP address (defaults to \code{\link{SERVER_DEFAULT}})
+#' @param username The username (defaults to the standard one for this specific DB)
+#' @param password The password (defaults to the standard one for this specific DB)
+#' @param database_encoding The encoding set for the specific database (defaults to CP1252)
+#' @param client_charset The character set used by the client (defaults to UTF-8)
 #' @return An ODBC connection to \code{\link{BUOY_DATA}} on \code{server}
 #' @export
-DB_BUOYS = function(server = get_default_db_server(), username = get_username_for_db(BUOY_DATA), password = get_password_for_db(BUOY_DATA)) {
+DB_BUOYS = function(server = get_default_db_server(), username = get_username_for_db(BUOY_DATA), password = get_password_for_db(BUOY_DATA), database_encoding = "CP1252", client_charset = "UTF-8") {
   return(connect_to(server, BUOY_DATA, username, password))
 }
 
-connect_to = function(server = get_default_db_server(), database, username = NA, password = NA) {
-  return (DB_CONNECT_TO(server, database, username, password))
+connect_to = function(server = get_default_db_server(), database, username = NA, password = NA, database_encoding = "CP1252", client_charset = "UTF-8") {
+  return (DB_CONNECT_TO(server, database, username, password, database_encoding = database_encoding, client_charset = client_charset))
 }

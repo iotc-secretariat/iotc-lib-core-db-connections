@@ -7,7 +7,9 @@
 DB_WP_CE_RAISED(
   server = get_default_db_server(),
   username = get_username_for_db(WP_CE_RAISED),
-  password = get_password_for_db(WP_CE_RAISED)
+  password = get_password_for_db(WP_CE_RAISED),
+  database_encoding = "CP1252",
+  client_charset = "UTF-8"
 )
 }
 \arguments{
@@ -16,6 +18,10 @@ DB_WP_CE_RAISED(
 \item{username}{The username (defaults to the standard one for this specific DB)}
 
 \item{password}{The password (defaults to the standard one for this specific DB)}
+
+\item{database_encoding}{The encoding set for the specific database (defaults to CP1252)}
+
+\item{client_charset}{The character set used by the client (defaults to UTF-8)}
 }
 \value{
 An ODBC connection to \code{\link{WP_CE_RAISED}} on \code{server}

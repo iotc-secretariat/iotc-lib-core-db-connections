@@ -7,11 +7,21 @@
 DB_BUOYS(
   server = get_default_db_server(),
   username = get_username_for_db(BUOY_DATA),
-  password = get_password_for_db(BUOY_DATA)
+  password = get_password_for_db(BUOY_DATA),
+  database_encoding = "CP1252",
+  client_charset = "UTF-8"
 )
 }
 \arguments{
 \item{server}{The server name / IP address (defaults to \code{\link{SERVER_DEFAULT}})}
+
+\item{username}{The username (defaults to the standard one for this specific DB)}
+
+\item{password}{The password (defaults to the standard one for this specific DB)}
+
+\item{database_encoding}{The encoding set for the specific database (defaults to CP1252)}
+
+\item{client_charset}{The character set used by the client (defaults to UTF-8)}
 }
 \value{
 An ODBC connection to \code{\link{BUOY_DATA}} on \code{server}

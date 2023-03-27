@@ -8,13 +8,23 @@ DB_CONNECT_TO(
   server = get_default_db_server(),
   database,
   username = NA,
-  password = NA
+  password = NA,
+  database_encoding = "CP1252",
+  client_charset = "UTF-8"
 )
 }
 \arguments{
 \item{server}{The server name / IP address (defaults to \code{\link{SERVER_DEFAULT}})}
 
 \item{database}{The database name}
+
+\item{username}{The user name}
+
+\item{password}{The password}
+
+\item{database_encoding}{The encoding set for the specific database (defaults to CP1252)}
+
+\item{client_charset}{The character set used by the client (defaults to UTF-8)}
 }
 \value{
 An ODBC connection to \code{database} on \code{server}
