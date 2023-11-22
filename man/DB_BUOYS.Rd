@@ -6,6 +6,7 @@
 \usage{
 DB_BUOYS(
   server = get_default_db_server(),
+  database = BUOY_DATA,
   username = get_username_for_db(BUOY_DATA),
   password = get_password_for_db(BUOY_DATA),
   database_encoding = "CP1252",
@@ -14,6 +15,8 @@ DB_BUOYS(
 }
 \arguments{
 \item{server}{The server name / IP address (defaults to \code{\link{SERVER_DEFAULT}})}
+
+\item{database}{The "Buoy positions" database name (defaults to \code{\link{BUOY_DATA}})}
 
 \item{username}{The username (defaults to the standard one for this specific DB)}
 

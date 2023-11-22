@@ -6,6 +6,7 @@
 \usage{
 DB_ROS_ANALYSIS(
   server = get_default_db_server(),
+  database = ROS_ANALYSIS,
   username = get_username_for_db(ROS_ANALYSIS),
   password = get_password_for_db(ROS_ANALYSIS),
   database_encoding = "CP1252",
@@ -14,6 +15,8 @@ DB_ROS_ANALYSIS(
 }
 \arguments{
 \item{server}{The server name / IP address (defaults to \code{\link{SERVER_DEFAULT}})}
+
+\item{database}{The "ROS analysis" database name (defaults to \code{\link{ROS_ANALYSIS}})}
 
 \item{username}{The username (defaults to the standard one for this specific DB)}
 

@@ -6,6 +6,7 @@
 \usage{
 DB_WP_CE_RAISED(
   server = get_default_db_server(),
+  database = WP_CE_RAISED,
   username = get_username_for_db(WP_CE_RAISED),
   password = get_password_for_db(WP_CE_RAISED),
   database_encoding = "CP1252",
@@ -14,6 +15,8 @@ DB_WP_CE_RAISED(
 }
 \arguments{
 \item{server}{The server name / IP address (defaults to \code{\link{SERVER_DEFAULT}})}
+
+\item{database}{The "WP raised catches" database name (defaults to \code{\link{WP_CE_RAISED}})}
 
 \item{username}{The username (defaults to the standard one for this specific DB)}
 

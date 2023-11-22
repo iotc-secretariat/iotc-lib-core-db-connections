@@ -6,6 +6,7 @@
 \usage{
 DB_ROS(
   server = get_default_db_server(),
+  database = ROS,
   username = get_username_for_db(ROS),
   password = get_password_for_db(ROS),
   database_encoding = "CP1252",
@@ -14,6 +15,8 @@ DB_ROS(
 }
 \arguments{
 \item{server}{The server name / IP address (defaults to \code{\link{SERVER_DEFAULT}})}
+
+\item{database}{The "ROS" database name (defaults to \code{\link{ROS}})}
 
 \item{username}{The username (defaults to the standard one for this specific DB)}
 

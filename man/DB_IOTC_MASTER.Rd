@@ -6,6 +6,7 @@
 \usage{
 DB_IOTC_MASTER(
   server = get_default_db_server(),
+  database = IOTC_MASTER,
   username = get_username_for_db(IOTDB),
   password = get_password_for_db(IOTDB),
   database_encoding = "CP1252",
@@ -14,6 +15,8 @@ DB_IOTC_MASTER(
 }
 \arguments{
 \item{server}{The server name / IP address (defaults to \code{\link{SERVER_DEFAULT}})}
+
+\item{database}{The "IOTC master" database name (defaults to \code{\link{IOTC_MASTER}})}
 
 \item{username}{The username (defaults to the standard one for this specific DB)}
 

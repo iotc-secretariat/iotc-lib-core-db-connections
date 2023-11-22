@@ -6,6 +6,7 @@
 \usage{
 DB_IOTCSTATISTICS(
   server = get_default_db_server(),
+  database = IOTCSTATISTICS,
   username = get_username_for_db(IOTCSTATISTICS),
   password = get_password_for_db(IOTCSTATISTICS),
   database_encoding = "CP1252",
@@ -14,6 +15,8 @@ DB_IOTCSTATISTICS(
 }
 \arguments{
 \item{server}{The server name / IP address (defaults to \code{\link{SERVER_DEFAULT}})}
+
+\item{database}{The "IOTC statistics" database name (defaults to \code{\link{IOTCSTATISTICS}})}
 
 \item{username}{The username (defaults to the standard one for this specific DB)}
 
