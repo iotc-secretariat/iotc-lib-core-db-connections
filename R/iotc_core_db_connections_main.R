@@ -174,7 +174,7 @@ DB_CONNECT_TO = function(server = get_default_db_server(), database, username = 
 #' @return An ODBC connection to \code{IOTC_MASTER} on \code{server}
 #' @export
 DB_IOTC_MASTER = function(server = get_default_db_server(), database = IOTC_MASTER, username = get_username_for_db(IOTDB), password = get_password_for_db(IOTDB), database_encoding = "CP1252", client_charset = "UTF-8") {
-  return(connect_to(server, IOTC_MASTER, username, password, database_encoding, client_charset))
+  return(connect_to(server, database, username, password, database_encoding, client_charset))
 }
 
 #' Connects to an instance of \code{IOTDB} on a given server machine using a trusted connection
@@ -188,7 +188,7 @@ DB_IOTC_MASTER = function(server = get_default_db_server(), database = IOTC_MAST
 #' @return An ODBC connection to \code{IOTDB} on \code{server}
 #' @export
 DB_IOTDB = function(server = get_default_db_server(), database = IOTDB, username = get_username_for_db(IOTDB), password = get_password_for_db(IOTDB), database_encoding = "CP1252", client_charset = "UTF-8") {
-  return(connect_to(server, IOTDB, username, password, database_encoding, client_charset))
+  return(connect_to(server, database, username, password, database_encoding, client_charset))
 }
 
 #' Connects to an instance of \code{\link{IOTCSTATISTICS}} on a given server machine using a trusted connection
@@ -202,7 +202,7 @@ DB_IOTDB = function(server = get_default_db_server(), database = IOTDB, username
 #' @return An ODBC connection to \code{\link{IOTCSTATISTICS}} on \code{server}
 #' @export
 DB_IOTCSTATISTICS = function(server = get_default_db_server(), database = IOTCSTATISTICS, username = get_username_for_db(IOTCSTATISTICS), password = get_password_for_db(IOTCSTATISTICS), database_encoding = "CP1252", client_charset = "UTF-8") {
-  return(connect_to(server, IOTCSTATISTICS, username, password))
+  return(connect_to(server, database, username, password))
 }
 
 #' Connects to an instance of \code{\link{WP_CE_RAISED}} on a given server machine using a trusted connection
@@ -216,7 +216,7 @@ DB_IOTCSTATISTICS = function(server = get_default_db_server(), database = IOTCST
 #' @return An ODBC connection to \code{\link{WP_CE_RAISED}} on \code{server}
 #' @export
 DB_WP_CE_RAISED = function(server = get_default_db_server(), database = WP_CE_RAISED, username = get_username_for_db(WP_CE_RAISED), password = get_password_for_db(WP_CE_RAISED), database_encoding = "CP1252", client_charset = "UTF-8") {
-  return(connect_to(server, WP_CE_RAISED, username, password))
+  return(connect_to(server, database, username, password))
 }
 
 #' Connects to an instance of \code{\link{IOTCVESSELS}} (containing the RAV and the AVL) on a given server machine using a trusted connection
@@ -230,7 +230,7 @@ DB_WP_CE_RAISED = function(server = get_default_db_server(), database = WP_CE_RA
 #' @return An ODBC connection to \code{\link{IOTCVESSELS}} on \code{server}
 #' @export
 DB_RAV = function(server = get_default_db_server(), database = "RAV", username = get_username_for_db(IOTCVESSELS), password = get_password_for_db(IOTCVESSELS), database_encoding = "CP1252", client_charset = "UTF-8") {
-  return(connect_to(server, IOTCVESSELS, username, password))
+  return(connect_to(server, database, username, password))
 }
 
 #' Connects to an instance of \code{\code{ROS}} on a given server machine using a trusted connection
@@ -244,7 +244,7 @@ DB_RAV = function(server = get_default_db_server(), database = "RAV", username =
 #' @return An ODBC connection to \code{\link{ROS}} on \code{server}
 #' @export
 DB_ROS = function(server = get_default_db_server(), database = ROS, username = get_username_for_db(ROS), password = get_password_for_db(ROS), database_encoding = "CP1252", client_charset = "UTF-8") {
-  return(??connect_to(server, ROS, username, password))
+  return(connect_to(server, database, username, password))
 }
 
 #' Connects to an instance of \code{\link{ROS_ANALYSIS}} on a given server machine using a trusted connection
@@ -258,7 +258,7 @@ DB_ROS = function(server = get_default_db_server(), database = ROS, username = g
 #' @return An ODBC connection to \code{\link{ROS_ANALYSIS}} on \code{server}
 #' @export
 DB_ROS_ANALYSIS = function(server = get_default_db_server(), database = ROS_ANALYSIS, username = get_username_for_db(ROS_ANALYSIS), password = get_password_for_db(ROS_ANALYSIS), database_encoding = "CP1252", client_charset = "UTF-8") {
-  return(connect_to(server, ROS_ANALYSIS, username, password))
+  return(connect_to(server, database, username, password))
 }
 
 #' Connects to an instance of \code{\link{BUOY_DATA}} on a given server machine using a trusted connection
@@ -272,7 +272,7 @@ DB_ROS_ANALYSIS = function(server = get_default_db_server(), database = ROS_ANAL
 #' @return An ODBC connection to \code{\link{BUOY_DATA}} on \code{server}
 #' @export
 DB_BUOYS = function(server = get_default_db_server(), database = BUOY_DATA, username = get_username_for_db(BUOY_DATA), password = get_password_for_db(BUOY_DATA), database_encoding = "CP1252", client_charset = "UTF-8") {
-  return(connect_to(server, BUOY_DATA, username, password))
+  return(connect_to(server, database, username, password))
 }
 
 connect_to = function(server = get_default_db_server(), database, username = NA, password = NA, database_encoding = "CP1252", client_charset = "UTF-8") {
