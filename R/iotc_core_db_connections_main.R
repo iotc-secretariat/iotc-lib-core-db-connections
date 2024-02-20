@@ -239,6 +239,7 @@ DB_RAV = function(server = get_default_db_server(), database = IOTCVESSELS, user
 #' @param database The database name
 #' @param username The username
 #' @param password The password
+#' @export
 DB_RAV_NEW = function(server, port, database = "rav_export", username, password) {
   BI::dbConnect(drv      = RPostgres::Postgres(),
                 host     = server,
