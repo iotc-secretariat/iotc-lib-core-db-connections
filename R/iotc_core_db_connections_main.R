@@ -222,15 +222,31 @@ DB_WP_CE_RAISED = function(server = get_default_db_server(), database = WP_CE_RA
 #' Connects to an instance of \code{\link{IOTCVESSELS}} (containing the RAV and the AVL) on a given server machine using a trusted connection
 #'
 #' @param server The server name / IP address (defaults to \code{\link{SERVER_DEFAULT}})
-#' @param database The "RAV" database name (defaults to \code{\link{RAV}})
+#' @param database The "RAV" database name (defaults to \code{\link{IOTCVESSELS}})
 #' @param username The username (defaults to the standard one for this specific DB)
 #' @param password The password (defaults to the standard one for this specific DB)
 #' @param database_encoding The encoding set for the specific database (defaults to CP1252)
 #' @param client_charset The character set used by the client (defaults to UTF-8)
 #' @return An ODBC connection to \code{\link{IOTCVESSELS}} on \code{server}
 #' @export
-DB_RAV = function(server = get_default_db_server(), database = "RAV", username = get_username_for_db(IOTCVESSELS), password = get_password_for_db(IOTCVESSELS), database_encoding = "CP1252", client_charset = "UTF-8") {
+DB_RAV = function(server = get_default_db_server(), database = IOTCVESSELS, username = get_username_for_db(IOTCVESSELS), password = get_password_for_db(IOTCVESSELS), database_encoding = "CP1252", client_charset = "UTF-8") {
   return(connect_to(server, database, username, password))
+}
+
+#' Connects to an instance of the new RAV database o a given server
+#' @param server The server name / IP address
+#' @param port The server port
+#' @param database The database name
+#' @param username The username
+#' @param password The password
+DB_RAV_NEW = function(server, port, database = "rav_export", username, password) {
+  BI::dbConnect(drv      = RPostgres::Postgres(),
+                host     = server,
+                port     = port,
+                dbname   = database,
+                user     = username,
+                password = password,
+                sslmode  = 'require')
 }
 
 #' Connects to an instance of \code{\code{ROS}} on a given server machine using a trusted connection

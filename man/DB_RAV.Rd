@@ -6,7 +6,7 @@
 \usage{
 DB_RAV(
   server = get_default_db_server(),
-  database = "RAV",
+  database = IOTCVESSELS,
   username = get_username_for_db(IOTCVESSELS),
   password = get_password_for_db(IOTCVESSELS),
   database_encoding = "CP1252",
@@ -16,7 +16,7 @@ DB_RAV(
 \arguments{
 \item{server}{The server name / IP address (defaults to \code{\link{SERVER_DEFAULT}})}
 
-\item{database}{The "RAV" database name (defaults to \code{\link{RAV}})}
+\item{database}{The "RAV" database name (defaults to \code{\link{IOTCVESSELS}})}
 
 \item{username}{The username (defaults to the standard one for this specific DB)}
 
