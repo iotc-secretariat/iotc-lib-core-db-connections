@@ -8,7 +8,7 @@ Description: Provides convenience methods to create connections to the most freq
     IOTC_MASTER,
     IOTDB,
     IOTCStatistics,
-    ROS_2.2.2
+    RAV_NEW (e-RAV),
     etc.
 License: Private
 Encoding: UTF-8
