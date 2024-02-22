@@ -17,6 +17,10 @@ IOTCSTATISTICS = "IOTCStatistics"
 #'@export
 IOTCVESSELS    = "IOTCVessels"
 
+#'The constants holding the name of the e-RAV database
+#'@export
+E_RAV           = "rav_export"
+
 #'The constants holding the name of the WP_CE_raised database
 #'@export
 WP_CE_RAISED   = "WP_CE_raised"
@@ -233,18 +237,18 @@ DB_RAV = function(server = get_default_db_server(), database = IOTCVESSELS, user
   return(connect_to(server, database, username, password))
 }
 
-#' Connects to an instance of the new RAV database o a given server
+#' Connects to an instance of the \code{\link{E_RAV}} on a given server
 #' @param server The server name / IP address
 #' @param port The server port
-#' @param database The database name
+#' @param database The database name (defaults to \code{\link{E_RAV}})
 #' @param username The username
 #' @param password The password
 #' @export
-DB_RAV_NEW = function(server  = Sys.getenv("RAV_NEW_DB_SERVER"),
-                      port    = Sys.getenv("RAV_NEW_DB_PORT"),
-                      database = "rav_export",
-                      username = Sys.getenv("RAV_NEW_DB_USER"),
-                      password = Sys.getenv("RAV_NEW_DB_PASSWORD")) {
+DB_E_RAV = function(server  = Sys.getenv("RAV_NEW_DB_SERVER"),
+                    port    = Sys.getenv("RAV_NEW_DB_PORT"),
+                    database = E_RAV,
+                    username = Sys.getenv("RAV_NEW_DB_USER"),
+                    password = Sys.getenv("RAV_NEW_DB_PASSWORD")) {
   DBI::dbConnect(drv      = RPostgres::Postgres(),
                  host     = server,
                  port     = port,
@@ -254,7 +258,7 @@ DB_RAV_NEW = function(server  = Sys.getenv("RAV_NEW_DB_SERVER"),
                  sslmode  = "require")
 }
 
-#' Connects to an instance of \code{\code{ROS}} on a given server machine using a trusted connection
+#' Connects to an instance of \code{\link{ROS}} on a given server machine using a trusted connection
 #'
 #' @param server The server name / IP address (defaults to \code{\link{SERVER_DEFAULT}})
 #' @param database The "ROS" database name (defaults to \code{\link{ROS}})
