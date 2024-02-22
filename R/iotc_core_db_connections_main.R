@@ -240,14 +240,18 @@ DB_RAV = function(server = get_default_db_server(), database = IOTCVESSELS, user
 #' @param username The username
 #' @param password The password
 #' @export
-DB_RAV_NEW = function(server, port, database = "rav_export", username, password) {
-  BI::dbConnect(drv      = RPostgres::Postgres(),
-                host     = server,
-                port     = port,
-                dbname   = database,
-                user     = username,
-                password = password,
-                sslmode  = 'require')
+DB_RAV_NEW = function(server  = Sys.getenv("RAV_NEW_DB_SERVER"),
+                      port    = Sys.getenv("RAV_NEW_DB_PORT"),
+                      database = "rav_export",
+                      username = Sys.getenv("RAV_NEW_DB_USER"),
+                      password = Sys.getenv("RAV_NEW_DB_PASSWORD")) {
+  DBI::dbConnect(drv      = RPostgres::Postgres(),
+                 host     = server,
+                 port     = port,
+                 dbname   = database,
+                 user     = username,
+                 password = password,
+                 sslmode  = "require")
 }
 
 #' Connects to an instance of \code{\code{ROS}} on a given server machine using a trusted connection
