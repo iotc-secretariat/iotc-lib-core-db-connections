@@ -2,7 +2,7 @@
 % Please edit documentation in R/iotc_core_db_connections_main.R
 \name{DB_ROS}
 \alias{DB_ROS}
-\title{Connects to an instance of \code{\code{ROS}} on a given server machine using a trusted connection}
+\title{Connects to an instance of \code{\link{ROS}} on a given server machine using a trusted connection}
 \usage{
 DB_ROS(
   server = get_default_db_server(),
@@ -30,5 +30,5 @@ DB_ROS(
 An ODBC connection to \code{\link{ROS}} on \code{server}
 }
 \description{
-Connects to an instance of \code{\code{ROS}} on a given server machine using a trusted connection
+Connects to an instance of \code{\link{ROS}} on a given server machine using a trusted connection
 }
