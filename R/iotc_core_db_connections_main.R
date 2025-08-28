@@ -54,65 +54,72 @@ db_debug_connections = function(mode = NA) {
 }
 
 #'Sets the default username / password for a given database.
+#'@param cache used to store credentials
 #'@param database the database identifier
 #'@param username the username
 #'@param password the password
 #'@export
-set_credentials_for_db = function(database, username, password) {
-  cache_set(CREDENTIALS_CACHE, database, list(USERNAME = username, PASSWORD = password), hash_key = FALSE)
+set_credentials_for_db = function(cache = CREDENTIALS_CACHE, database, username, password) {
+  cache_set(cache, database, list(USERNAME = username, PASSWORD = password), hash_key = FALSE)
 }
 
 #'Retrieves the default username / password for a given database.
+#'@param cache used to store credentials
 #'@param database the database identifier
 #'@return the stored credentials for the database (if any)
 #'@export
-get_credentials_for_db = function(database) {
-  if(!are_credentials_for_db_available(database)) return(NA)
+get_credentials_for_db = function(cache = CREDENTIALS_CACHE,database) {
+  if(!are_credentials_for_db_available(cache, database)) return(NA)
 
-  return(cache_get(CREDENTIALS_CACHE, database, hash_key = FALSE))
+  return(cache_get(cache, database, hash_key = FALSE))
 }
 
 #'Retrieves the default username for a given database.
+#'@param cache used to store credentials
 #'@param database the database identifier
 #'@return the stored username for the database (if any) or \code{NA}
 #'@export
-get_username_for_db = function(database) {
-  if(are_credentials_for_db_available(database)) return(get_credentials_for_db(database)$USERNAME)
+get_username_for_db = function(cache = CREDENTIALS_CACHE, database) {
+  if(are_credentials_for_db_available(cache, database)) return(get_credentials_for_db(cache, database)$USERNAME)
 
   return(NA)
 }
 
 #'Retrieves the default password for a given database.
+#'@param cache used to store credentials
 #'@param database the database identifier
 #'@return the stored password for the database (if any) or \code{NA}
 #'@export
-get_password_for_db = function(database) {
-  if(are_credentials_for_db_available(database)) return(get_credentials_for_db(database)$PASSWORD)
+get_password_for_db = function(cache = CREDENTIALS_CACHE,database) {
+  if(are_credentials_for_db_available(cache, database)) return(get_credentials_for_db(cache, database)$PASSWORD)
 
   return(NA)
 }
 
 #'Checks that stored  username / password exist for a given database.
+#'@param cache used to store credentials
 #'@param database the database identifier
 #'@return \code{TRUE} if stored credentials exist for the given database
 #'@export
-are_credentials_for_db_available = function(database) {
-  return(is_available(cache_get(CREDENTIALS_CACHE, database, hash_key = FALSE)))
+are_credentials_for_db_available = function(cache = CREDENTIALS_CACHE, database) {
+  return(is_available(cache_get(cache, database, hash_key = FALSE)))
 }
 
 #' Sets the default server name / IP address for all ODBC request to standard IOTC databases
 #'
+#'@param cache used to store server
 #' @param server A server name / IP address (defaults to \code{\link{SERVER_DEFAULT}})
 #' @export
-set_default_db_server = function(server = SERVER_DEFAULT) {
-  cache_set(SERVER_CACHE, "SERVER", server, hash_key = FALSE)
+set_default_db_server = function(cache = SERVER_CACHE, server = SERVER_DEFAULT) {
+  cache_set(cache, "SERVER", server, hash_key = FALSE)
 }
 
 #' Gets the default server name / IP address for all ODBC request to standard IOTC databases
 #'
+#'@param cache used to store server
 #' @export
-get_default_db_server = function() {
-  if(!cache_contains(SERVER_CACHE, "SERVER")) {
+get_default_db_server = function(cache = SERVER_CACHE) {
+  if(!cache_contains(cache, "SERVER", hash_key = FALSE)) {
     global_default = Sys.getenv("DEFAULT_IOTC_DB_SERVER")
 
     if(is.na(global_default) |
@@ -122,7 +129,7 @@ get_default_db_server = function() {
     return(global_default)
   }
 
-  return (cache_get(SERVER_CACHE, "SERVER", hash_key = FALSE))
+  return (cache_get(cache, "SERVER", hash_key = FALSE))
 }
 
 #' Connects to a SQL Server database on a given server machine using a trusted connection
