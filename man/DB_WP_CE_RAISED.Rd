@@ -7,8 +7,8 @@
 DB_WP_CE_RAISED(
   server = get_default_db_server(),
   database = WP_CE_RAISED,
-  username = get_username_for_db(WP_CE_RAISED),
-  password = get_password_for_db(WP_CE_RAISED),
+  username = get_username_for_db(database),
+  password = get_password_for_db(database),
   database_encoding = "CP1252",
   client_charset = "UTF-8"
 )

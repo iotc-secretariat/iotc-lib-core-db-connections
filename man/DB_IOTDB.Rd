@@ -7,8 +7,8 @@
 DB_IOTDB(
   server = get_default_db_server(),
   database = IOTDB,
-  username = get_username_for_db(IOTDB),
-  password = get_password_for_db(IOTDB),
+  username = get_username_for_db(database),
+  password = get_password_for_db(database),
   database_encoding = "CP1252",
   client_charset = "UTF-8"
 )

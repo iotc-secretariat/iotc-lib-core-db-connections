@@ -4,12 +4,12 @@
 \alias{get_password_for_db}
 \title{Retrieves the default password for a given database.}
 \usage{
-get_password_for_db(cache = CREDENTIALS_CACHE, database)
+get_password_for_db(database, cache = CREDENTIALS_CACHE)
 }
 \arguments{
-\item{cache}{used to store credentials}
-
 \item{database}{the database identifier}
+
+\item{cache}{used to store credentials}
 }
 \value{
 the stored password for the database (if any) or \code{NA}

@@ -7,8 +7,8 @@
 DB_BUOYS(
   server = get_default_db_server(),
   database = BUOY_DATA,
-  username = get_username_for_db(BUOY_DATA),
-  password = get_password_for_db(BUOY_DATA),
+  username = get_username_for_db(database),
+  password = get_password_for_db(database),
   database_encoding = "CP1252",
   client_charset = "UTF-8"
 )

@@ -4,16 +4,16 @@
 \alias{set_credentials_for_db}
 \title{Sets the default username / password for a given database.}
 \usage{
-set_credentials_for_db(cache = CREDENTIALS_CACHE, database, username, password)
+set_credentials_for_db(database, username, password, cache = CREDENTIALS_CACHE)
 }
 \arguments{
-\item{cache}{used to store credentials}
-
 \item{database}{the database identifier}
 
 \item{username}{the username}
 
 \item{password}{the password}
+
+\item{cache}{used to store credentials}
 }
 \description{
 Sets the default username / password for a given database.

@@ -4,12 +4,12 @@
 \alias{set_default_db_server}
 \title{Sets the default server name / IP address for all ODBC request to standard IOTC databases}
 \usage{
-set_default_db_server(cache = SERVER_CACHE, server = SERVER_DEFAULT)
+set_default_db_server(server = SERVER_DEFAULT, cache = SERVER_CACHE)
 }
 \arguments{
-\item{cache}{used to store server}
-
 \item{server}{A server name / IP address (defaults to \code{\link{SERVER_DEFAULT}})}
+
+\item{cache}{used to store server}
 }
 \description{
 Sets the default server name / IP address for all ODBC request to standard IOTC databases

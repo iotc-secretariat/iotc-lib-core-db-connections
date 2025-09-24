@@ -7,8 +7,8 @@
 DB_ROS_ANALYSIS(
   server = get_default_db_server(),
   database = ROS_ANALYSIS,
-  username = get_username_for_db(ROS_ANALYSIS),
-  password = get_password_for_db(ROS_ANALYSIS),
+  username = get_username_for_db(database),
+  password = get_password_for_db(database),
   database_encoding = "CP1252",
   client_charset = "UTF-8"
 )

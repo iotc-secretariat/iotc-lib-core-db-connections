@@ -54,68 +54,66 @@ db_debug_connections = function(mode = NA) {
 }
 
 #'Sets the default username / password for a given database.
-#'@param cache used to store credentials
 #'@param database the database identifier
 #'@param username the username
 #'@param password the password
+#'@param cache used to store credentials
 #'@export
-set_credentials_for_db = function(cache = CREDENTIALS_CACHE, database, username, password) {
+set_credentials_for_db = function(database, username, password, cache = CREDENTIALS_CACHE) {
   cache_set(cache, database, list(USERNAME = username, PASSWORD = password), hash_key = FALSE)
 }
 
 #'Retrieves the default username / password for a given database.
-#'@param cache used to store credentials
 #'@param database the database identifier
+#'@param cache used to store credentials
 #'@return the stored credentials for the database (if any)
 #'@export
-get_credentials_for_db = function(cache = CREDENTIALS_CACHE,database) {
-  if(!are_credentials_for_db_available(cache, database)) return(NA)
+get_credentials_for_db = function(database, cache = CREDENTIALS_CACHE) {
+  if(!are_credentials_for_db_available(database, cache)) return(NA)
 
   return(cache_get(cache, database, hash_key = FALSE))
 }
 
 #'Retrieves the default username for a given database.
-#'@param cache used to store credentials
 #'@param database the database identifier
+#'@param cache used to store credentials
 #'@return the stored username for the database (if any) or \code{NA}
 #'@export
-get_username_for_db = function(cache = CREDENTIALS_CACHE, database) {
-  if(are_credentials_for_db_available(cache, database)) return(get_credentials_for_db(cache, database)$USERNAME)
+get_username_for_db = function(database, cache = CREDENTIALS_CACHE) {
+  if(are_credentials_for_db_available(database, cache)) return(get_credentials_for_db(database, cache)$USERNAME)
 
   return(NA)
 }
 
 #'Retrieves the default password for a given database.
-#'@param cache used to store credentials
 #'@param database the database identifier
+#'@param cache used to store credentials
 #'@return the stored password for the database (if any) or \code{NA}
 #'@export
-get_password_for_db = function(cache = CREDENTIALS_CACHE,database) {
-  if(are_credentials_for_db_available(cache, database)) return(get_credentials_for_db(cache, database)$PASSWORD)
+get_password_for_db = function(database, cache = CREDENTIALS_CACHE) {
+  if(are_credentials_for_db_available(database, cache)) return(get_credentials_for_db(database, cache)$PASSWORD)
 
   return(NA)
 }
 
 #'Checks that stored  username / password exist for a given database.
-#'@param cache used to store credentials
 #'@param database the database identifier
+#'@param cache used to store credentials
 #'@return \code{TRUE} if stored credentials exist for the given database
 #'@export
-are_credentials_for_db_available = function(cache = CREDENTIALS_CACHE, database) {
+are_credentials_for_db_available = function(database, cache = CREDENTIALS_CACHE) {
   return(is_available(cache_get(cache, database, hash_key = FALSE)))
 }
 
 #' Sets the default server name / IP address for all ODBC request to standard IOTC databases
-#'
-#'@param cache used to store server
 #' @param server A server name / IP address (defaults to \code{\link{SERVER_DEFAULT}})
+#' @param cache used to store server
 #' @export
-set_default_db_server = function(cache = SERVER_CACHE, server = SERVER_DEFAULT) {
+set_default_db_server = function(server = SERVER_DEFAULT, cache = SERVER_CACHE) {
   cache_set(cache, "SERVER", server, hash_key = FALSE)
 }
 
 #' Gets the default server name / IP address for all ODBC request to standard IOTC databases
-#'
 #'@param cache used to store server
 #' @export
 get_default_db_server = function(cache = SERVER_CACHE) {
@@ -184,7 +182,7 @@ DB_CONNECT_TO = function(server = get_default_db_server(), database, username = 
 #' @param client_charset The character set used by the client (defaults to UTF-8)
 #' @return An ODBC connection to \code{IOTC_MASTER} on \code{server}
 #' @export
-DB_IOTC_MASTER = function(server = get_default_db_server(), database = IOTC_MASTER, username = get_username_for_db(IOTDB), password = get_password_for_db(IOTDB), database_encoding = "CP1252", client_charset = "UTF-8") {
+DB_IOTC_MASTER = function(server = get_default_db_server(), database = IOTC_MASTER, username = get_username_for_db(database), password = get_password_for_db(database), database_encoding = "CP1252", client_charset = "UTF-8") {
   return(connect_to(server, database, username, password, database_encoding, client_charset))
 }
 
@@ -198,7 +196,7 @@ DB_IOTC_MASTER = function(server = get_default_db_server(), database = IOTC_MAST
 #' @param client_charset The character set used by the client (defaults to UTF-8)
 #' @return An ODBC connection to \code{IOTDB} on \code{server}
 #' @export
-DB_IOTDB = function(server = get_default_db_server(), database = IOTDB, username = get_username_for_db(IOTDB), password = get_password_for_db(IOTDB), database_encoding = "CP1252", client_charset = "UTF-8") {
+DB_IOTDB = function(server = get_default_db_server(), database = IOTDB, username = get_username_for_db(database), password = get_password_for_db(database), database_encoding = "CP1252", client_charset = "UTF-8") {
   return(connect_to(server, database, username, password, database_encoding, client_charset))
 }
 
@@ -212,7 +210,7 @@ DB_IOTDB = function(server = get_default_db_server(), database = IOTDB, username
 #' @param client_charset The character set used by the client (defaults to UTF-8)
 #' @return An ODBC connection to \code{\link{IOTCSTATISTICS}} on \code{server}
 #' @export
-DB_IOTCSTATISTICS = function(server = get_default_db_server(), database = IOTCSTATISTICS, username = get_username_for_db(IOTCSTATISTICS), password = get_password_for_db(IOTCSTATISTICS), database_encoding = "CP1252", client_charset = "UTF-8") {
+DB_IOTCSTATISTICS = function(server = get_default_db_server(), database = IOTCSTATISTICS, username = get_username_for_db(database), password = get_password_for_db(database), database_encoding = "CP1252", client_charset = "UTF-8") {
   return(connect_to(server, database, username, password))
 }
 
@@ -226,7 +224,7 @@ DB_IOTCSTATISTICS = function(server = get_default_db_server(), database = IOTCST
 #' @param client_charset The character set used by the client (defaults to UTF-8)
 #' @return An ODBC connection to \code{\link{WP_CE_RAISED}} on \code{server}
 #' @export
-DB_WP_CE_RAISED = function(server = get_default_db_server(), database = WP_CE_RAISED, username = get_username_for_db(WP_CE_RAISED), password = get_password_for_db(WP_CE_RAISED), database_encoding = "CP1252", client_charset = "UTF-8") {
+DB_WP_CE_RAISED = function(server = get_default_db_server(), database = WP_CE_RAISED, username = get_username_for_db(database), password = get_password_for_db(database), database_encoding = "CP1252", client_charset = "UTF-8") {
   return(connect_to(server, database, username, password))
 }
 
@@ -240,7 +238,7 @@ DB_WP_CE_RAISED = function(server = get_default_db_server(), database = WP_CE_RA
 #' @param client_charset The character set used by the client (defaults to UTF-8)
 #' @return An ODBC connection to \code{\link{IOTCVESSELS}} on \code{server}
 #' @export
-DB_RAV = function(server = get_default_db_server(), database = IOTCVESSELS, username = get_username_for_db(IOTCVESSELS), password = get_password_for_db(IOTCVESSELS), database_encoding = "CP1252", client_charset = "UTF-8") {
+DB_RAV = function(server = get_default_db_server(), database = IOTCVESSELS, username = get_username_for_db(database), password = get_password_for_db(database), database_encoding = "CP1252", client_charset = "UTF-8") {
   return(connect_to(server, database, username, password))
 }
 
@@ -275,7 +273,7 @@ DB_E_RAV = function(server  = Sys.getenv("RAV_NEW_DB_SERVER"),
 #' @param client_charset The character set used by the client (defaults to UTF-8)
 #' @return An ODBC connection to \code{\link{ROS}} on \code{server}
 #' @export
-DB_ROS = function(server = get_default_db_server(), database = ROS, username = get_username_for_db(ROS), password = get_password_for_db(ROS), database_encoding = "CP1252", client_charset = "UTF-8") {
+DB_ROS = function(server = get_default_db_server(), database = ROS, username = get_username_for_db(database), password = get_password_for_db(database), database_encoding = "CP1252", client_charset = "UTF-8") {
   return(connect_to(server, database, username, password))
 }
 
@@ -289,7 +287,7 @@ DB_ROS = function(server = get_default_db_server(), database = ROS, username = g
 #' @param client_charset The character set used by the client (defaults to UTF-8)
 #' @return An ODBC connection to \code{\link{ROS_ANALYSIS}} on \code{server}
 #' @export
-DB_ROS_ANALYSIS = function(server = get_default_db_server(), database = ROS_ANALYSIS, username = get_username_for_db(ROS_ANALYSIS), password = get_password_for_db(ROS_ANALYSIS), database_encoding = "CP1252", client_charset = "UTF-8") {
+DB_ROS_ANALYSIS = function(server = get_default_db_server(), database = ROS_ANALYSIS, username = get_username_for_db(database), password = get_password_for_db(database), database_encoding = "CP1252", client_charset = "UTF-8") {
   return(connect_to(server, database, username, password))
 }
 
@@ -303,7 +301,7 @@ DB_ROS_ANALYSIS = function(server = get_default_db_server(), database = ROS_ANAL
 #' @param client_charset The character set used by the client (defaults to UTF-8)
 #' @return An ODBC connection to \code{\link{BUOY_DATA}} on \code{server}
 #' @export
-DB_BUOYS = function(server = get_default_db_server(), database = BUOY_DATA, username = get_username_for_db(BUOY_DATA), password = get_password_for_db(BUOY_DATA), database_encoding = "CP1252", client_charset = "UTF-8") {
+DB_BUOYS = function(server = get_default_db_server(), database = BUOY_DATA, username = get_username_for_db(database), password = get_password_for_db(database), database_encoding = "CP1252", client_charset = "UTF-8") {
   return(connect_to(server, database, username, password))
 }
 

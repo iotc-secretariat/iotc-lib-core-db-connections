@@ -4,12 +4,12 @@
 \alias{get_credentials_for_db}
 \title{Retrieves the default username / password for a given database.}
 \usage{
-get_credentials_for_db(cache = CREDENTIALS_CACHE, database)
+get_credentials_for_db(database, cache = CREDENTIALS_CACHE)
 }
 \arguments{
-\item{cache}{used to store credentials}
-
 \item{database}{the database identifier}
+
+\item{cache}{used to store credentials}
 }
 \value{
 the stored credentials for the database (if any)

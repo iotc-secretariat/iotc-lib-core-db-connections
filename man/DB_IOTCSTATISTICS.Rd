@@ -7,8 +7,8 @@
 DB_IOTCSTATISTICS(
   server = get_default_db_server(),
   database = IOTCSTATISTICS,
-  username = get_username_for_db(IOTCSTATISTICS),
-  password = get_password_for_db(IOTCSTATISTICS),
+  username = get_username_for_db(database),
+  password = get_password_for_db(database),
   database_encoding = "CP1252",
   client_charset = "UTF-8"
 )

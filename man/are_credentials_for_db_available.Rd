@@ -4,12 +4,12 @@
 \alias{are_credentials_for_db_available}
 \title{Checks that stored  username / password exist for a given database.}
 \usage{
-are_credentials_for_db_available(cache = CREDENTIALS_CACHE, database)
+are_credentials_for_db_available(database, cache = CREDENTIALS_CACHE)
 }
 \arguments{
-\item{cache}{used to store credentials}
-
 \item{database}{the database identifier}
+
+\item{cache}{used to store credentials}
 }
 \value{
 \code{TRUE} if stored credentials exist for the given database
