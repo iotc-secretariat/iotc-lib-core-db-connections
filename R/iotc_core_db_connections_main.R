@@ -27,7 +27,7 @@ WP_CE_RAISED   = "WP_CE_raised"
 
 #'The constants holding the name of the ROS database
 #'@export
-ROS            = "ROS_2.3.0"
+ROS            = "ROS_3.1.2"
 
 #'The constants holding the name of the ROS_analysis database
 #'@export
@@ -212,6 +212,27 @@ DB_IOTDB = function(server = get_default_db_server(), database = IOTDB, username
 #' @export
 DB_IOTCSTATISTICS = function(server = get_default_db_server(), database = IOTCSTATISTICS, username = get_username_for_db(database), password = get_password_for_db(database), database_encoding = "CP1252", client_charset = "UTF-8") {
   return(connect_to(server, database, username, password))
+}
+
+#' Connects to an instance of the \code{\link{IOTCReferenceData}} on a given server
+#' @param server The server name / IP address
+#' @param port The server port
+#' @param database The database name (defaults to \code{\link{IOTCReferenceData}})
+#' @param username The username
+#' @param password The password
+#' @export
+DB_IOTCReferenceData = function(server  = Sys.getenv("IOTC_DATA_DB_SERVER"),
+                    port    = Sys.getenv("IOTC_DATA_DB_PORT"),
+                    database = Sys.getenv("IOTC_REFERENCE_DATA_DB_NAME"),
+                    username = Sys.getenv("IOTC_REFERENCE_DATA_DB_USER"),
+                    password = Sys.getenv("IOTC_REFERENCE_DATA_DB_PASSWORD")) {
+  DBI::dbConnect(drv      = RPostgres::Postgres(),
+                 host     = server,
+                 port     = port,
+                 dbname   = database,
+                 user     = username,
+                 password = password,
+                 sslmode  = "require")
 }
 
 #' Connects to an instance of \code{\link{WP_CE_RAISED}} on a given server machine using a trusted connection
